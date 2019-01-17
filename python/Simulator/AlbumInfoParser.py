@@ -39,32 +39,32 @@ class AlbumInfoParser:
     def __init__(self, album_info_path, album_id_path):
         # 1st process album info
         self.albums = []
-        album_info_file = open(album_id_path, "r")
-        for line in album_info_file.readlines():
-            try:
-                json_obj = json.loads(line)
-                if json_obj.get('album') is None:
-                    self.albums.append(AlbumInfo())
-                    print("no valid info for " + str(json_obj))
-                    continue
-                album_name = json_obj.get('album').get('album_name').strip()
-                album_id = json_obj.get('album').get('album_id').strip()
-                anchor = json_obj.get('album').get('album_owner').get('anchor_name').strip()
-                category_list = json_obj.get('category_list')
-                category1 = category_list[0].get('category_name').strip() if len(category_list) > 0 else ''
-                category2 = category_list[1].get('category_name').strip() if len(category_list) > 1 else ''
-                self.albums.append(AlbumInfo(album_id, album_name, category1, category2, anchor))
-            except BaseException as e:
-                logging.exception(e)
+        with open(album_id_path, "r") as album_info_file:
+            for line in album_info_file.readlines():
+                try:
+                    json_obj = json.loads(line)
+                    if json_obj.get('album') is None:
+                        self.albums.append(AlbumInfo())
+                        print("no valid info for " + str(json_obj))
+                        continue
+                    album_name = json_obj.get('album').get('album_name').strip()
+                    album_id = json_obj.get('album').get('album_id').strip()
+                    anchor = json_obj.get('album').get('album_owner').get('anchor_name').strip()
+                    category_list = json_obj.get('category_list')
+                    category1 = category_list[0].get('category_name').strip() if len(category_list) > 0 else ''
+                    category2 = category_list[1].get('category_name').strip() if len(category_list) > 1 else ''
+                    self.albums.append(AlbumInfo(album_id, album_name, category1, category2, anchor))
+                except BaseException as e:
+                    logging.exception(e)
 
         # 2nd process album_ids
         self.album_ids = []
-        album_id_file = open(album_id_path, "r")
-        i = 0
-        for line in album_id_file.readlines():
-            album_id = line.strip()
-            self.album_ids.append(album_id)
-            self.albums[i].album_id = album_id
-            i += 1
+        with open(album_id_path, "r") as album_id_file:
+            i = 0
+            for line in album_id_file.readlines():
+                album_id = line.strip()
+                self.album_ids.append(album_id)
+                self.albums[i].album_id = album_id
+                i += 1
 
 

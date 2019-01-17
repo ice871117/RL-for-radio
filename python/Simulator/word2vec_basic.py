@@ -57,7 +57,7 @@ url = 'http://mattmahoney.net/dc/'
 # pylint: disable=redefined-outer-name
 def maybe_download(filename, expected_bytes):
   """Download a file if not present, and make sure it's the right size."""
-  local_filename = os.path.join(gettempdir(), filename)
+  local_filename = os.path.join("../../../album_info", filename)
   if not os.path.exists(local_filename):
     local_filename, _ = urllib.request.urlretrieve(url + filename,
                                                    local_filename)

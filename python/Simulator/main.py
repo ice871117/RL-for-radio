@@ -2,8 +2,8 @@ from AlbumInfoParser import AlbumInfoParser
 from AlbumInfoParser import AlbumInfo
 
 
-ALBUM_INFO_PATH = "../../../albun_info/albumDetail.txt"
-ALBUM_ID_PATH = "../../../albun_info/albumList.txt"
+ALBUM_INFO_PATH = "../../../album_info/albumDetail.txt"
+ALBUM_ID_PATH = "../../../album_info/albumList.txt"
 
 
 if __name__ == "__main__":
