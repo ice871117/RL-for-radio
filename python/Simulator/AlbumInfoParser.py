@@ -11,7 +11,7 @@ import logging
 
 class AlbumInfo:
     # static re pattern which will remove any punctuation in the target string
-    __invalid_char_re = re.compile(r"[,.-\\，。《》<>\"“”、\(\)!！\?；：;:\[\]]")
+    __invalid_char_re = re.compile(r"[,.-\\，。《》<>\"“”、\(\)!！\?；：;:\[\]#]")
 
     def __init__(self, album_id='', name='', category1='', category2='', anchor=''):
         """this constructor might be time consuming, for it will perform string processing and word cutting"""
@@ -36,10 +36,13 @@ class AlbumInfo:
 
 
 class AlbumInfoParser:
+
+    BOUND = '##'
+
     def __init__(self, album_info_path, album_id_path):
         # 1st process album info
         self.albums = []
-        with open(album_id_path, "r") as album_info_file:
+        with open(album_id_path, 'r') as album_info_file:
             for line in album_info_file.readlines():
                 try:
                     json_obj = json.loads(line)
@@ -59,12 +62,22 @@ class AlbumInfoParser:
 
         # 2nd process album_ids
         self.album_ids = []
-        with open(album_id_path, "r") as album_id_file:
+        with open(album_id_path, 'r') as album_id_file:
             i = 0
             for line in album_id_file.readlines():
                 album_id = line.strip()
                 self.album_ids.append(album_id)
                 self.albums[i].album_id = album_id
                 i += 1
+
+        # build vocabulary
+        self.vocabulary = []
+        self.build_vocabulary()
+
+    def build_vocabulary(self):
+        for album in self.albums:
+            for word in album.name_cut:
+                self.vocabulary.append(word)
+            self.vocabulary.append(AlbumInfoParser.BOUND)
 
 
