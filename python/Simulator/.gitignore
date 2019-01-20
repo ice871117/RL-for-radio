@@ -6,6 +6,9 @@ bin/
 gen/
 build/
 *.log
+log
+log/
+log/*
 .idea
 cached*
 test
@@ -17,3 +20,4 @@ train/*
 ckpt
 ckpt/
 ckpt/*
+.DS_Store
