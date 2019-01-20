@@ -11,4 +11,4 @@ Then the DQN will try to learn the relationship between a specific name and the 
 
 Here is the TSNE result for one training.
 
-![image](http://github.com/ice871117/RL-for-radio/python/Simulator/images/tsne.png)
+![image](https://github.com/ice871117/RL-for-radio/blob/master/python/Simulator/images/tsne.png)
